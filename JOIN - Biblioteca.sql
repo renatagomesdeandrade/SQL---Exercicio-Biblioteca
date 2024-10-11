@@ -37,7 +37,18 @@ WHERE E.id IS NULL;
 -- UNION
 -- Exercício 1: Liste todos os livros e seus autores, incluindo livros que não têm
 -- autores associados e autores que não têm livros cadastrados.
-
+SELECT L.titulo, A.nome FROM livros AS L
+LEFT JOIN autores AS A
+ON L.id_autor = A.id_autor
+UNION 
+-- Autores com ou sem livros associados
+SELECT L.titulo, A.nome FROM autores AS A
+LEFT JOIN livros AS L 
+ON L.id_autor = A.id_autor
+WHERE titulo is null;
 
 -- Exercício 2: Liste todos os membros e livros emprestados, incluindo membros
 -- que não pegaram livros e livros que não foram emprestados.
+SELECT * FROM membros AS M
+LEFT JOIN empretimos AS E ON M.id_membro = E.id_membro
+LEFT JOIN livros AS L ON L.id_livro = E.id_livro;
